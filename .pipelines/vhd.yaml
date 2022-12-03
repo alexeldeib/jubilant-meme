@@ -11,7 +11,7 @@ stages:
   - job: matrix
     steps:
     - bash: |
-        scenarios=$(echo '{"1-25-2-ubuntu-22-04-gen2":{"kube_version":"1.25.2","sku":"ubuntu-22.04-gen2"}}' | jq -r tojson | sed 's/\\//g')
+        scenarios=$(echo '{"build-1-25-2-ubuntu-22-04-gen2":{"kube_version":"1.25.2","sku":"ubuntu-22.04-gen2"}}' | jq -r tojson | sed 's/\\//g')
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios
       name: matrix
   - job: build
