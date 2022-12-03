@@ -55,6 +55,8 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
 
+# KEY: this packages everything into a tar archive with relative directories to the root fs (/)
+# this allows us to directly untar the entire package at once, with all files in the correct locations
 tar -cvzf artifacts-$kube_version.tar.gz -C $root .
 tar -tzf artifacts-$kube_version.tar.gz
 

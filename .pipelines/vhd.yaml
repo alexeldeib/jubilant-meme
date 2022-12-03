@@ -37,7 +37,7 @@ stages:
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
         GROUP="$(mktemp -u ace-XXXXXXX | tr '[:upper:]' '[:lower:]')"
-        GALLERY="acegallery"
+        GALLERY="$(echo $GROUP | tr -d '-')"
         export GALLERY
         export GROUP
         export SUBSCRIPTION
@@ -46,7 +46,7 @@ stages:
         az sig create -g $GROUP -r $GALLERY
         az sig image-definition create \
           --resource-group ${GROUP} \
-          --gallery-name ${GALLERY} \
+          --gallery-name $(echo $GROUP | tr -d '-') \
           --gallery-image-definition $(echo $sku | tr -d '.-') \
           --publisher microsoft-aks \
           --offer $GALLERY \
