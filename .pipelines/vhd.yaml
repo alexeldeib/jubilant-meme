@@ -27,7 +27,7 @@ stages:
         set -euxo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix develope -c cachix use alexeldeib
+        nix develop -c cachix use alexeldeib
 
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
