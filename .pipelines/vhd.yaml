@@ -60,7 +60,7 @@ stages:
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
         patches=""
-        patchFiles="$(nix develop -c bash -c "cue export matrix.cue | jq -r --arg sku $sku '.skus.$sku.patches[]'")"
+        patchFiles="$(nix develop -c bash -c $'cue export matrix.cue | jq -r --arg sku $sku \'.skus.$sku.patches[]\'')"
         for file in $patches; do
           patches="-p $file"
         done
