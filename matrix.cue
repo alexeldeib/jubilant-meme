@@ -142,23 +142,23 @@
                 "dest_image_version": "0.0.1"
             }
         },
-        "mariner-2-gen2": {
-            "patches": [
-                "packer/market-src-patch.json",
-                "packer/sig-dest-patch.json",
-            ],
-            "variables": {
-                "image_offer": "cbl-mariner",
-                "image_publisher": "MicrosoftCBLMariner",
-                "image_sku": "cbl-mariner-2-gen2",
-                "image_version": "latest",
-                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
-                "dest_resource_group_name": "{{ env `GROUP`}}",
-                "dest_gallery_name": "{{ env `GALLERY`}}",
-                "dest_image_name": "mariner2gen2",
-                "dest_image_version": "0.0.1"
-            }
-        },
+        // "mariner-2-gen2": {
+        //     "patches": [
+        //         "packer/market-src-patch.json",
+        //         "packer/sig-dest-patch.json",
+        //     ],
+        //     "variables": {
+        //         "image_offer": "cbl-mariner",
+        //         "image_publisher": "MicrosoftCBLMariner",
+        //         "image_sku": "cbl-mariner-2-gen2",
+        //         "image_version": "latest",
+        //         "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+        //         "dest_resource_group_name": "{{ env `GROUP`}}",
+        //         "dest_gallery_name": "{{ env `GALLERY`}}",
+        //         "dest_image_name": "mariner2gen2",
+        //         "dest_image_version": "0.0.1"
+        //     }
+        // },
         // "mariner-2-gen2-kata": {
         //     "variables": {
         //         "image_offer": "cbl-mariner",

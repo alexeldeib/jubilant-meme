@@ -41,6 +41,9 @@ stages:
         export GALLERY
         export GROUP
         export SUBSCRIPTION
+        echo "sku = $sku"
+        export kube_version="$(kube_version)"
+        export sku="$(sku)"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         az sig create -g $GROUP -r $GALLERY
@@ -56,9 +59,6 @@ stages:
           --location eastus 
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
-        echo "sku = $sku"
-        export kube_version="$(kube_version)"
-        export sku="$(sku)"
         patches=""
         patchFiles="$(nix develop -c bash -c "cue export matrix.cue | jq -r --arg sku $sku '.skus.$sku.patches[]'")"
         for file in $patches; do
