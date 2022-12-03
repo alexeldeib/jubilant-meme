@@ -30,7 +30,7 @@ stages:
 
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
-        GROUP="ace-$(cat /dev/urandom | tr -dc 'a-z' | fold -w 8 | head -n 1)"
+        GROUP="$(mktemp -u ace-XXXXXXX | tr '[:upper:]' '[:lower:]')"
         GALLERY="acegallery"
         export $GALLERY
         export $GROUP
@@ -44,6 +44,8 @@ stages:
       name: build
     - bash: |-
         set -euxo pipefail
-        az group delete -y --no-wait -g "$(build.groupname)"
+        echo "$(build.groupname)"
+        echo "$[ variables.build.groupname ]"
+        # az group delete -y --no-wait -g 
       displayName: cleanup
       condition: always()
