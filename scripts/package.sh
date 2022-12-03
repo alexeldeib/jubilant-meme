@@ -57,6 +57,6 @@ rm cni-plugins-linux-amd64-v1.0.1.tgz
 tar -cvzf artifacts-$kube_version.tar.gz -C $root .
 tar -tzf artifacts-$kube_version.tar.gz
 
-mv artifacts-$kube_version.tar.gz $REPO_ROOT/artifacts-tar.gz
+mv artifacts-$kube_version.tar.gz $REPO_ROOT/artifacts-$kube_version.tar.gz
 
 popd

@@ -3,6 +3,8 @@ set -x
 
 ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
+tar -xvzf /home/packer/artifacts.tar.gz -C /
+
 mkdir -p /opt/cni/bin
 mkdir -p /etc/cni/net.d
 mkdir -p /etc/kubernetes/certs

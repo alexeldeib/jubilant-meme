@@ -25,8 +25,8 @@
       },
       {
         "type": "file",
-        "source": "scripts/image-deps",
-        "destination": "/home/packer/image-deps.sh"
+        "source": "artifacts-{{ env `kube_version`}}.tar.gz",
+        "destination": "/home/packer/artifacts.tar.gz"
       },
       {
         "type": "shell",
