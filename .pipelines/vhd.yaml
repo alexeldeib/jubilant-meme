@@ -11,6 +11,8 @@ stages:
   - job: matrix
     steps:
     - bash: |
+        set -eux
+        ./scripts/matrix.sh | jq -r tojson | sed 's/\\//g'
         scenarios=$(./scripts/matrix.sh | jq -r tojson | sed 's/\\//g')
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios
       name: matrix
