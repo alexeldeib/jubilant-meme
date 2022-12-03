@@ -15,8 +15,10 @@ stages:
       displayName: install nix
     - bash: |-
         set -euxo pipefail
+        sudo apt-get update -yq
+        sudo apt-get install -yq strace
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix develop
+        strace nix develop
         packer version
       displayName: install dependencies
