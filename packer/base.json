@@ -2,6 +2,7 @@
     "builders": [
       {
         "type": "azure-arm",
+        "virtual_network_resource_group_name": "nodesigtest-agent-pool",
         "virtual_network_name": "packer-vnet",
         "virtual_network_subnet_name": "packer",
         "ssh_timeout": "3h",
