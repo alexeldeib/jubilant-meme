@@ -1,22 +1,22 @@
 {
     "skus": {
-        "ubuntu-18.04-gen1": {
-            "patches": [
-                "packer/market-src-patch.json",
-                "packer/sig-dest-patch.json",
-            ],
-            "variables": {
-                "image_offer": "UbuntuServer",
-                "image_publisher": "Canonical",
-                "image_sku": "18.04-LTS",
-                "image_version": "latest",
-                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
-                "dest_resource_group_name": "{{ env `GROUP`}}",
-                "dest_gallery_name": "{{ env `GALLERY`}}",
-                "dest_image_name": "ubuntu1804gen1",
-                "dest_image_version": "0.0.1"
-            }
-        },
+        // "ubuntu-18.04-gen1": {
+        //     "patches": [
+        //         "packer/market-src-patch.json",
+        //         "packer/sig-dest-patch.json",
+        //     ],
+        //     "variables": {
+        //         "image_offer": "UbuntuServer",
+        //         "image_publisher": "Canonical",
+        //         "image_sku": "18.04-LTS",
+        //         "image_version": "latest",
+        //         "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+        //         "dest_resource_group_name": "{{ env `GROUP`}}",
+        //         "dest_gallery_name": "{{ env `GALLERY`}}",
+        //         "dest_image_name": "ubuntu1804gen1",
+        //         "dest_image_version": "0.0.1"
+        //     }
+        // },
         // "ubuntu-18.04-gen1-fips": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
@@ -90,23 +90,23 @@
         //         "image_version": "20.04.202205260"
         //     }
         // },
-        "ubuntu-22.04-gen1": {
-            "patches": [
-                "packer/market-src-patch.json",
-                "packer/sig-dest-patch.json",
-            ],
-            "variables": {
-                "image_offer": "0001-com-ubuntu-server-jammy",
-                "image_publisher": "Canonical",
-                "image_sku": "22_04-lts",
-                "image_version": "latest"
-                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
-                "dest_resource_group_name": "{{ env `GROUP`}}",
-                "dest_gallery_name": "{{ env `GALLERY`}}",
-                "dest_image_name": "ubuntu2204gen1",
-                "dest_image_version": "0.0.1"
-            }
-        },
+        // "ubuntu-22.04-gen1": {
+        //     "patches": [
+        //         "packer/market-src-patch.json",
+        //         "packer/sig-dest-patch.json",
+        //     ],
+        //     "variables": {
+        //         "image_offer": "0001-com-ubuntu-server-jammy",
+        //         "image_publisher": "Canonical",
+        //         "image_sku": "22_04-lts",
+        //         "image_version": "latest"
+        //         "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+        //         "dest_resource_group_name": "{{ env `GROUP`}}",
+        //         "dest_gallery_name": "{{ env `GALLERY`}}",
+        //         "dest_image_name": "ubuntu2204gen1",
+        //         "dest_image_version": "0.0.1"
+        //     }
+        // },
         "ubuntu-22.04-gen2": {
             "patches": [
                 "packer/market-src-patch.json",
@@ -172,12 +172,12 @@
     },
     "versions": {
         "1.22.11": {},
-        "1.22.15": {},
-        "1.23.8": {},
-        "1.23.12": {},
-        "1.24.3": {},
-        "1.24.6": {},
-        "1.25.2": {},
+        // "1.22.15": {},
+        // "1.23.8": {},
+        // "1.23.12": {},
+        // "1.24.3": {},
+        // "1.24.6": {},
+        // "1.25.2": {},
         "1.25.4": {}
     }
 }
