@@ -26,7 +26,7 @@ stages:
     - bash: |-
         set -euxo pipefail
         echo "starting build"
-        #source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
@@ -39,7 +39,7 @@ stages:
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         nix develop -c json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | sponge
-        # nix develop -c packer $outfile
+        nix develop -c packer $outfile
       displayName: install dependencies
       name: build
     - bash: |-
