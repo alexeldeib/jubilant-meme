@@ -29,7 +29,7 @@ sudo mkdir -p $HOME/.config/nix
 
 sudo tee /etc/nix/nix.conf > /dev/null <<EOF
 build-users-group = nixbld
-trusted-users = root nonroot
+trusted-users = root nonroot cloudtest
 EOF
 
 sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
