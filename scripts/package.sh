@@ -38,8 +38,8 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
     sudo apt update -yq
 fi
 
-wget "https://acs-mirror.azureedge.net/kubernetes/v${kube_version}/binaries/kubernetes-node-linux-amd64.tar.gz"
-tar -xvzf kubernetes-node-linux-amd64.tar.gz --strip-components=3 -C $root/usr/local/bin kubernetes/node/bin/kubelet kubernetes/node/bin/kubectl
+wget "https://acs-mirror.azureedge.net/kubernetes/v${kube_version}/binaries/kubernetes-node-linux-amd64.tar.gz" &> /dev/null 
+tar -xvzf kubernetes-node-linux-amd64.tar.gz --strip-components=3 -C $root/usr/local/bin kubernetes/node/bin/kubelet kubernetes/node/bin/kubectl > /dev/null 2>&1
 
 sudo apt-get download moby-containerd moby-runc
 mv moby-runc* $root/opt/runc/
