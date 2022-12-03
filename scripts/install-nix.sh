@@ -29,8 +29,9 @@ sudo mkdir -p $HOME/.config/nix
 
 sudo tee /etc/nix/nix.conf > /dev/null <<EOF
 build-users-group = nixbld
-trusted-users = root nonroot cloudtest
+trusted-users = root cloudtest
 EOF
+chmod a+r /etc/nix/nix.conf
 
 sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
 experimental-features = nix-command flakes
@@ -43,3 +44,6 @@ source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
 echo "which nix-daemon"
 which nix-daemon
 nix-shell -p nix-info --run "nix-info -m"
+sudo systemctl list-units | grep nix
+sudo pkill nix-daemon
+sudo systemctl list-units | grep nix
