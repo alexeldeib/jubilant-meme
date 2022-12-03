@@ -15,10 +15,5 @@
             "dest_image_name": "ubuntu2204gen2",
             "dest_image_version": "0.0.1"
         }
-    },
-    {
-        "op": "add", 
-        "path": "/builders/0/subscription_id",
-        "value": "{{user `subscription`}}"
     }
 ]

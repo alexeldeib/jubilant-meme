@@ -2,7 +2,7 @@
     "builders": [
       {
         "type": "azure-arm",
-        "use_azure_cli_auth": true,
+        "subscription_id": "{{user `subscription`}}",
         "virtual_network_resource_group_name": "nodesigtest-agent-pool",
         "virtual_network_name": "nodesig-pool-vnet",
         "virtual_network_subnet_name": "packer",
