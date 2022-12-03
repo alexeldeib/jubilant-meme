@@ -33,7 +33,7 @@
       {
         "type": "shell",
         "inline": [
-          "sudo /bin/bash -ux /home/packer/image-deps.sh"
+          "/bin/bash -ux /home/packer/image-deps.sh"
         ]
       },
       {
