@@ -1,7 +1,7 @@
 [
     {
         "op": "add",
-        "path": "/variables/.",
+        "path": "/variables",
         "value": {
             "subscription": "{{env `SUBSCRIPTION`}}",
             "resource_group": "{{env `GROUP`}}",      

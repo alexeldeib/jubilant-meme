@@ -1,8 +1,4 @@
 {
-    "variables": {
-      "subscription": "{{env `SUBSCRIPTION`}}",
-      "resource_group": "{{env `GROUP`}}"
-    },
     "builders": [
       {
         "type": "azure-arm",
