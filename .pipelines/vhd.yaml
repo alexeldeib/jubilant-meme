@@ -17,8 +17,5 @@ stages:
         set -euo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix develop -i
-        packer version
-        go install github.com/evanphx/json-patch/cmd/json-patch@latest
-        kill -9 $$
+        nix develop -c packer version
       displayName: install dependencies
