@@ -1,0 +1,25 @@
+[
+    { 
+        "op": "add", 
+        "path": "/builders/0/shared_image_gallery_destination", 
+        "value": {
+            "subscription": "{{user `dest_subscription_id`}}",
+            "resource_group": "{{user `dest_resource_group_name`}}",
+            "gallery_name": "{user `dest_gallery_name`}",
+            "image_name": "{{user `dest_image_name`}}",
+            "image_version": "{{ user `dest_image_version`}}",
+            "replications_regions": ["eastus"],
+            "storage_account_type": "Premium_LRS"
+        }
+    },
+    {
+        "op": "add", 
+        "path": "/builders/0/managed_image_resource_group_name",
+        "value": "{{user `dest_resource_group_name`}}"
+    },
+    {
+        "op": "add", 
+        "path": "/builders/0/managed_image_name",
+        "value": "{{ user `dest_resource_group_name` }}-{{user `dest_image_name`}}"
+    }
+]

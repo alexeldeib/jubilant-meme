@@ -8,17 +8,44 @@ stages:
 - stage: build_vhd
   dependsOn: []
   jobs:
+  - job: matrix
+    steps:
+    - bash: |
+        scenarios=$(echo '{"1.25.2-ubuntu-22.04-gen2":{"name":"1.25.2","val":"ubuntu-22.04-gen2"}}' | jq -r tojson | sed 's/\\//g')
+        echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios
+      name: matrix
   - job: build
+    dependsOn:
+    - matrix
+    stategy:
+      matrix: $[ dependencies.matrix.outputs['matrix.output'] ]
     timeoutInMinutes: 180
     steps:
     - bash: ./scripts/install-nix.sh
       displayName: install nix
+    - bash: go install github.com/evanphx/json-patch/cmd/json-patch@latest
+      displayName: install jsonpatch
     - bash: |-
         set -euxo pipefail
-        sudo apt-get update -yq
-        sudo apt-get install -yq strace
         echo "starting build"
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        strace nix develop
-        packer version
+        #source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+
+        az login --identity
+        SUBSCRIPTION="$(az account show | jq -r .id)"
+        az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
+        GROUP="ace-$(cat /dev/urandom | tr -dc 'a-z' | fold -w 8 | head -n 1)"
+        GALLERY="acegallery"
+        export $GALLERY
+        export $GROUP
+        export $SUBSCRIPTION
+        echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
+        outfile=$(mktemp --suffix=.json packer-out-XXXX)
+        json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | sponge $outfile 
+        nix develop -c packer $outfile
       displayName: install dependencies
+      name: build
+    - bash: |-
+        set -euxo pipefail
+        az group delete -y --no-wait -g "$(build.groupname)"
+      displayName: cleanup
+      condition: always()
