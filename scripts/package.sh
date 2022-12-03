@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
+REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+
 [[ -z "$kube_version" ]] && echo "kube_version must be defined" && exit 1
 
 source /etc/os-release
@@ -54,5 +56,7 @@ rm cni-plugins-linux-amd64-v1.0.1.tgz
 
 tar -cvzf artifacts-$kube_version.tar.gz -C $root .
 tar -tzf artifacts-$kube_version.tar.gz
+
+mv artifacts-$kube_version.tar.gz $REPO_ROOT/artifacts-tar.gz
 
 popd

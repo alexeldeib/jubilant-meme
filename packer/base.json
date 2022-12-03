@@ -24,6 +24,11 @@
         "destination": "/home/packer/image-deps.sh"
       },
       {
+        "type": "file",
+        "source": "scripts/image-deps",
+        "destination": "/home/packer/image-deps.sh"
+      },
+      {
         "type": "shell",
         "inline": [
           "sudo /bin/bash -ux /home/packer/image-deps.sh"
