@@ -45,6 +45,4 @@ sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
 experimental-features = nix-command flakes
 EOF
 
-sudo systemctl list-units | grep nix
 sudo pkill nix-daemon
-sudo systemctl list-units | grep nix
