@@ -31,7 +31,7 @@ sudo tee /etc/nix/nix.conf > /dev/null <<EOF
 build-users-group = nixbld
 trusted-users = root cloudtest
 EOF
-chmod a+r /etc/nix/nix.conf
+sudo chmod a+r /etc/nix/nix.conf
 
 sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
 experimental-features = nix-command flakes
