@@ -5,7 +5,7 @@
         "value": {
             "subscription": "{{user `dest_subscription_id`}}",
             "resource_group": "{{user `dest_resource_group_name`}}",
-            "gallery_name": "{user `dest_gallery_name`}",
+            "gallery_name": "{{user `dest_gallery_name`}}",
             "image_name": "{{user `dest_image_name`}}",
             "image_version": "{{ user `dest_image_version`}}",
             "replication_regions": ["eastus"],
