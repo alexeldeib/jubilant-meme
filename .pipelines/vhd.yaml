@@ -45,6 +45,7 @@ stages:
         nix develop -c bash -c "json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | tee $outfile"
         sleep 10
         nix develop -c az group show -g "${GROUP}"
+        export PACKER_LOG=1
         nix develop -c packer build -debug $outfile
         cachix use alexeldeib
         sudo su nonroot -c 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && cachix use alexeldeib'
