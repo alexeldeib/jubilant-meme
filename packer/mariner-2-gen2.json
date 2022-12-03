@@ -8,6 +8,6 @@
     "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
     "dest_resource_group_name": "{{ env `GROUP`}}",
     "dest_gallery_name": "{{ env `GALLERY`}}",
-    "dest_image_name": "cblmariner2gen2",
+    "dest_image_name": "mariner2gen2",
     "dest_image_version": "0.0.1"
 }

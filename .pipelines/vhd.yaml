@@ -49,7 +49,7 @@ stages:
         az sig create -g $GROUP -r $GALLERY
         az sig image-definition create \
           --resource-group ${GROUP} \
-          --gallery-name $(echo $GROUP | tr -d '-') \
+          --gallery-name $GALLERY \
           --gallery-image-definition $(echo $(sku) | tr -d '-') \
           --publisher microsoft-aks \
           --offer $GALLERY \
