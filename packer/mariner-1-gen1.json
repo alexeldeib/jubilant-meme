@@ -1,0 +1,13 @@
+{
+    "subscription": "{{env `SUBSCRIPTION`}}",
+    "resource_group": "{{env `GROUP`}}",      
+    "image_offer": "cbl-mariner",
+    "image_publisher": "MicrosoftCBLMariner",
+    "image_sku": "cbl-mariner-1",
+    "image_version": "latest",
+    "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+    "dest_resource_group_name": "{{ env `GROUP`}}",
+    "dest_gallery_name": "{{ env `GALLERY`}}",
+    "dest_image_name": "cblmariner1gen1",
+    "dest_image_version": "0.0.1"
+}

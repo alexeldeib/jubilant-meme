@@ -1,6 +1,6 @@
 {
     "skus": {
-        // "ubuntu-18.04-gen1": {
+        // "ubuntu-18-04-gen1": {
         //     "patches": [
         //         "packer/market-src-patch.json",
         //         "packer/sig-dest-patch.json",
@@ -17,7 +17,7 @@
         //         "dest_image_version": "0.0.1"
         //     }
         // },
-        // "ubuntu-18.04-gen1-fips": {
+        // "ubuntu-18-04-gen1-fips": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -25,7 +25,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        // "ubuntu-18.04-gen1-gpu": {
+        // "ubuntu-18-04-gen1-gpu": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -33,7 +33,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        // "ubuntu-18.04-gen1-fips-gpu": {
+        // "ubuntu-18-04-gen1-fips-gpu": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -41,7 +41,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        "ubuntu-18.04-gen2": {
+        "ubuntu-18-04-gen2": {
             "patches": [
                 "packer/market-src-patch.json",
                 "packer/sig-dest-patch.json",
@@ -58,7 +58,7 @@
                 "dest_image_version": "0.0.1"
             }
         },
-        // "ubuntu-18.04-gen2-fips": {
+        // "ubuntu-18-04-gen2-fips": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -66,7 +66,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        // "ubuntu-18.04-gen2-gpu": {
+        // "ubuntu-18-04-gen2-gpu": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -74,7 +74,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        // "ubuntu-18.04-gen2-fips-gpu": {
+        // "ubuntu-18-04-gen2-fips-gpu": {
         //      "variables": {
         //         "image_offer": "UbuntuServer",
         //         "image_publisher": "Canonical",
@@ -82,7 +82,7 @@
         //         "image_version": "latest"
         //     }
         // },
-        // "ubuntu-20.04-gen2-cvm": {
+        // "ubuntu-20-04-gen2-cvm": {
         //     "variables": {
         //         "image_offer": "0001-com-ubuntu-confidential-vm-focal",
         //         "image_publisher": "Canonical",
@@ -90,7 +90,7 @@
         //         "image_version": "20.04.202205260"
         //     }
         // },
-        // "ubuntu-22.04-gen1": {
+        // "ubuntu-22-04-gen1": {
         //     "patches": [
         //         "packer/market-src-patch.json",
         //         "packer/sig-dest-patch.json",
@@ -107,7 +107,7 @@
         //         "dest_image_version": "0.0.1"
         //     }
         // },
-        "ubuntu-22.04-gen2": {
+        "ubuntu-22-04-gen2": {
             "patches": [
                 "packer/market-src-patch.json",
                 "packer/sig-dest-patch.json",
@@ -124,7 +124,7 @@
                 "dest_image_version": "0.0.1"
             }
         },
-        // "ubuntu-22.04-gen2-arm64": {},
+        // "ubuntu-22-04-gen2-arm64": {},
         "mariner-1-gen1": {
             "patches": [
                 "packer/market-src-patch.json",
