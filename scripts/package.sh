@@ -46,12 +46,12 @@ mv moby-runc* $root/opt/runc/
 mv moby-containerd* $root/opt/containerd/
 
 # azure cni (only)
-wget https://github.com/Azure/azure-container-networking/releases/download/v1.4.12/azure-vnet-cni-linux-amd64-v1.4.12.tgz
+wget https://github.com/Azure/azure-container-networking/releases/download/v1.4.12/azure-vnet-cni-linux-amd64-v1.4.12.tgz  &> /dev/null
 tar -xvzf azure-vnet-cni-linux-amd64-v1.4.12.tgz -C $root/opt/cni/bin
 mv $root/opt/cni/bin/10-azure.conflist $root/etc/cni/net.d/10-azure.conflist
 
 # cni plugins
-wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni-plugins-linux-amd64-v1.0.1.tgz
+wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni-plugins-linux-amd64-v1.0.1.tgz  &> /dev/null
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
 
