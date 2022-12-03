@@ -1,11 +1,20 @@
 {
     "skus": {
         "ubuntu-18.04-gen1": {
-             "variables": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
+            "variables": {
                 "image_offer": "UbuntuServer",
                 "image_publisher": "Canonical",
                 "image_sku": "18.04-LTS",
-                "image_version": "latest"
+                "image_version": "latest",
+                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+                "dest_resource_group_name": "{{ env `GROUP`}}",
+                "dest_gallery_name": "{{ env `GALLERY`}}",
+                "dest_image_name": "ubuntu1804gen1",
+                "dest_image_version": "0.0.1"
             }
         },
         // "ubuntu-18.04-gen1-fips": {
@@ -33,11 +42,20 @@
         //     }
         // },
         "ubuntu-18.04-gen2": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
              "variables": {
                 "image_offer": "UbuntuServer",
                 "image_publisher": "Canonical",
                 "image_sku": "18_04-LTS-GEN2",
-                "image_version": "latest"
+                "image_version": "latest",
+                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+                "dest_resource_group_name": "{{ env `GROUP`}}",
+                "dest_gallery_name": "{{ env `GALLERY`}}",
+                "dest_image_name": "ubuntu1804gen2",
+                "dest_image_version": "0.0.1"
             }
         },
         // "ubuntu-18.04-gen2-fips": {
@@ -73,14 +91,27 @@
         //     }
         // },
         "ubuntu-22.04-gen1": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
             "variables": {
                 "image_offer": "0001-com-ubuntu-server-jammy",
                 "image_publisher": "Canonical",
                 "image_sku": "22_04-lts",
                 "image_version": "latest"
+                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+                "dest_resource_group_name": "{{ env `GROUP`}}",
+                "dest_gallery_name": "{{ env `GALLERY`}}",
+                "dest_image_name": "ubuntu2204gen1",
+                "dest_image_version": "0.0.1"
             }
         },
         "ubuntu-22.04-gen2": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
             "variables": {
                 "image_offer": "0001-com-ubuntu-server-jammy",
                 "image_publisher": "Canonical",
@@ -95,19 +126,37 @@
         },
         // "ubuntu-22.04-gen2-arm64": {},
         "mariner-1-gen1": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
             "variables": {
                 "image_offer": "cbl-mariner",
                 "image_publisher": "MicrosoftCBLMariner",
                 "image_sku": "cbl-mariner-1",
-                "image_version": "latest"
+                "image_version": "latest",
+                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+                "dest_resource_group_name": "{{ env `GROUP`}}",
+                "dest_gallery_name": "{{ env `GALLERY`}}",
+                "dest_image_name": "mariner1gen1",
+                "dest_image_version": "0.0.1"
             }
         },
         "mariner-2-gen2": {
+            "patches": [
+                "packer/market-src-patch.json",
+                "packer/sig-dest-patch.json",
+            ],
             "variables": {
                 "image_offer": "cbl-mariner",
                 "image_publisher": "MicrosoftCBLMariner",
                 "image_sku": "cbl-mariner-2-gen2",
-                "image_version": "latest"
+                "image_version": "latest",
+                "dest_subscription_id": "{{env `SUBSCRIPTION`}}",
+                "dest_resource_group_name": "{{ env `GROUP`}}",
+                "dest_gallery_name": "{{ env `GALLERY`}}",
+                "dest_image_name": "mariner2gen2",
+                "dest_image_version": "0.0.1"
             }
         },
         // "mariner-2-gen2-kata": {
