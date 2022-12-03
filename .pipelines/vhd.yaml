@@ -28,7 +28,6 @@ stages:
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix-env -iA cachix -f https://cachix.org/api/v1/install
-        sudo cachix use alexeldeib
         cachix use alexeldeib
 
         az login --identity
