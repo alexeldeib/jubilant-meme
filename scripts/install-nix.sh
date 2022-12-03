@@ -37,7 +37,7 @@ nix-shell -p nix-info --run "nix-info -m"
 
 sudo tee /etc/nix/nix.conf > /dev/null <<EOF
 build-users-group = nixbld
-trusted-users = root cloudtest
+trusted-users = root nonroot cloudtest
 EOF
 sudo chmod a+r /etc/nix/nix.conf
 
