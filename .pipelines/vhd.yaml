@@ -44,8 +44,6 @@ stages:
       name: build
     - bash: |-
         set -euxo pipefail
-        echo "$(build.groupname)"
-        echo "$[ variables.build.groupname ]"
-        # az group delete -y --no-wait -g 
+        az group delete -y --no-wait -g "$(build.groupname)"
       displayName: cleanup
       condition: always()
