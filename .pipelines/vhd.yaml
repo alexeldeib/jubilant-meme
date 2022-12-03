@@ -67,8 +67,9 @@ stages:
 
         nix develop -c bash ./scripts/package.sh
         nix develop -c bash -c "json-patch $patches < packer/base.json | jq | tee $outfile"
-        sleep 10
+        sleep 30
         nix develop -c az group show -g "${GROUP}"
+        export PACKER_LOG=1
         nix develop -c packer build -var-file=packer/$sku.json $outfile
       displayName: install dependencies
       name: build
