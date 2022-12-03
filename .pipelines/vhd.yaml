@@ -41,7 +41,7 @@ stages:
         export GALLERY
         export GROUP
         export SUBSCRIPTION
-        echo "sku = $sku"
+        echo "sku = $(sku)"
         export kube_version="$(kube_version)"
         export sku="$(sku)"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
@@ -50,10 +50,10 @@ stages:
         az sig image-definition create \
           --resource-group ${GROUP} \
           --gallery-name $(echo $GROUP | tr -d '-') \
-          --gallery-image-definition $(echo $sku | tr -d '.-') \
+          --gallery-image-definition $(echo $(sku) | tr -d '.-') \
           --publisher microsoft-aks \
           --offer $GALLERY \
-          --sku $(echo $sku | tr -d '.-') \
+          --sku $(echo $(sku) | tr -d '.-') \
           --os-type Linux \
           --hyper-v-generation V2 \
           --location eastus 
