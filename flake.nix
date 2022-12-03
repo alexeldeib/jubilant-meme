@@ -44,6 +44,7 @@
         devShell = mkShell {
           buildInputs = [
             act
+            cachix
             cue
             conftest
             go
