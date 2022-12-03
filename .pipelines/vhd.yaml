@@ -57,7 +57,7 @@ stages:
         sleep 10
         nix develop -c az group show -g "${GROUP}"
         nix develop -c packer build $outfile
-        cachix use alexeldeib
+        # cachix use alexeldeib
         sudo su nonroot -c 'source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && cachix use alexeldeib'
       displayName: install dependencies
       name: build

@@ -45,4 +45,6 @@ sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
 experimental-features = nix-command flakes
 EOF
 
+sudo chown $(whoami) $HOME/.config/nix/nix.conf
+
 sudo pkill nix-daemon
