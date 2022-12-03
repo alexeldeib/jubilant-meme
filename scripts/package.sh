@@ -59,5 +59,6 @@ tar -tzf artifacts-$kube_version.tar.gz
 
 echo "pwd: $(pwd)"
 ls -al
+mv artifacts-$kube_version.tar.gz artifacts.tar.gz
 
 popd

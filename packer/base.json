@@ -26,7 +26,7 @@
       },
       {
         "type": "file",
-        "source": "artifacts-{{ env `kube_version`}}.tar.gz",
+        "source": "artifacts.tar.gz",
         "destination": "/home/packer/artifacts.tar.gz"
       },
       {
