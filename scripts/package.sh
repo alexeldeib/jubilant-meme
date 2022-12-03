@@ -7,6 +7,7 @@ REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
 source /etc/os-release
 
+src=$(pwd)
 root=$(pwd)/$(mktemp -d final-XXXX)
 work=$(pwd)/$(mktemp -d work-XXXX)
 pushd $work || exit 1
@@ -59,6 +60,7 @@ tar -tzf artifacts-$kube_version.tar.gz
 
 echo "pwd: $(pwd)"
 ls -al
-mv artifacts-$kube_version.tar.gz artifacts.tar.gz
+cp artifacts-$kube_version.tar.gz ../artifacts.tar.gz
+cp artifacts-$kube_version.tar.gz $src/artifacts.tar.gz
 
 popd
