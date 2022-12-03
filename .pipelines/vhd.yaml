@@ -17,7 +17,7 @@ stages:
   - job: build
     dependsOn:
     - matrix
-    stategy:
+    strategy:
       matrix: $[ dependencies.matrix.outputs['matrix.output'] ]
     timeoutInMinutes: 180
     steps:
