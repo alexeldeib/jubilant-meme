@@ -27,6 +27,14 @@ EOF
 sudo mkdir -p /etc/nix
 sudo mkdir -p $HOME/.config/nix
 
+sudo su nonroot -c 'sh ./install-nix-2.11.1 --daemon'
+set -x
+sudo su nonroot -c '. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && which nix-daemon'
+source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+echo "which nix-daemon"
+which nix-daemon
+nix-shell -p nix-info --run "nix-info -m"
+
 sudo tee /etc/nix/nix.conf > /dev/null <<EOF
 build-users-group = nixbld
 trusted-users = root cloudtest
@@ -37,13 +45,6 @@ sudo tee $HOME/.config/nix/nix.conf > /dev/null <<EOF
 experimental-features = nix-command flakes
 EOF
 
-sudo su nonroot -c 'sh ./install-nix-2.11.1 --daemon'
-set -x
-sudo su nonroot -c '. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && which nix-daemon'
-source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-echo "which nix-daemon"
-which nix-daemon
-nix-shell -p nix-info --run "nix-info -m"
 sudo systemctl list-units | grep nix
 sudo pkill nix-daemon
 sudo systemctl list-units | grep nix
