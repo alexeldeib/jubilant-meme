@@ -38,7 +38,7 @@ stages:
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
-        json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | sponge $outfile 
+        nix develop -c json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | sponge $outfile
         nix develop -c packer $outfile
       displayName: install dependencies
       name: build
