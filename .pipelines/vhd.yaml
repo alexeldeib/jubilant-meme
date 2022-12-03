@@ -19,5 +19,6 @@ stages:
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix develop -i
         packer version
+        go install github.com/evanphx/json-patch/cmd/json-patch@latest
         kill -9 $$
-      displayName: Get Build Mode
+      displayName: install dependencies
