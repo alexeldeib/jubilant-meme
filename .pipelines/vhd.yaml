@@ -29,7 +29,7 @@ stages:
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix-env -iA cachix -f https://cachix.org/api/v1/install
         cachix use alexeldeib
-        
+
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
         GROUP="$(mktemp -u ace-XXXXXXX | tr '[:upper:]' '[:lower:]')"
@@ -40,6 +40,7 @@ stages:
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
+        nix develop -c bash ./package.sh
         nix develop -c bash -c 'json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | tee $outfile'
         nix develop -c packer build $outfile
       displayName: install dependencies
