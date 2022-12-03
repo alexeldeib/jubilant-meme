@@ -8,7 +8,7 @@
             "gallery_name": "{user `dest_gallery_name`}",
             "image_name": "{{user `dest_image_name`}}",
             "image_version": "{{ user `dest_image_version`}}",
-            "replications_regions": ["eastus"],
+            "replication_regions": ["eastus"],
             "storage_account_type": "Premium_LRS"
         }
     },
