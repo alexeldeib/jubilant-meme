@@ -32,9 +32,9 @@ stages:
         SUBSCRIPTION="$(az account show | jq -r .id)"
         GROUP="$(mktemp -u ace-XXXXXXX | tr '[:upper:]' '[:lower:]')"
         GALLERY="acegallery"
-        export $GALLERY
-        export $GROUP
-        export $SUBSCRIPTION
+        export GALLERY
+        export GROUP
+        export SUBSCRIPTION
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
