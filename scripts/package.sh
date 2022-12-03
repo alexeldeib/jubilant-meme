@@ -24,8 +24,10 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
         aptarch="multiarch/prod"
     fi
 
-    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} ${VERSION_CODENAME} main" | sudo sponge /etc/apt/sources.list.d/microsoft-prod.list
-    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} testing main" | sudo sponge /etc/apt/sources.list.d/microsoft-prod-testing.list
+    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} ${VERSION_CODENAME} main" > microsoft-prod.list
+    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} testing main" > microsoft-prod-testing.list
+    sudo mv microsoft-prod.list /etc/apt/sources.list.d/microsoft-prod.list
+    sudo mv microsoft-prod-testing.list /etc/apt/sources.list.d/microsoft-prod-testing.list
 
     wget https://packages.microsoft.com/keys/microsoft.asc
     gpg --dearmor < microsoft.asc > microsoft.gpg
