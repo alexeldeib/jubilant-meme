@@ -40,7 +40,7 @@ stages:
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $kube_version"
-        nix develop -c kube_version=$kube_version bash ./scripts/package.sh
+        nix develop -k kube_version -c bash ./scripts/package.sh
         nix develop -c bash -c 'json-patch -p packer/market-src-patch.json -p packer/sig-dest-patch.json -p packer/ubuntu-22.04-gen2-patch.json < packer/base.json | jq | tee $outfile'
         nix develop -c packer build $outfile
         cachix use alexeldeib
