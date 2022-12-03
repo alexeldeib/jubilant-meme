@@ -28,14 +28,15 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
     echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} testing main" > /etc/apt/sources.list.d/microsoft-prod-testing.list
 
     wget https://packages.microsoft.com/keys/microsoft.asc
-    gpg --dearmor < microsoft.asc > /etc/apt/trusted.gpg.d/microsoft.gpg
-    apt update -yq
+    gpg --dearmor < microsoft.asc > microsoft.gpg
+    sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
+    sudo apt update -yq
 fi
 
 wget "https://acs-mirror.azureedge.net/kubernetes/v${kube_version}/binaries/kubernetes-node-linux-amd64.tar.gz"
 tar -xvzf kubernetes-node-linux-amd64.tar.gz --strip-components=3 -C $root/usr/local/bin kubernetes/node/bin/kubelet kubernetes/node/bin/kubectl
 
-apt-get download moby-containerd moby-runc
+sudo apt-get download moby-containerd moby-runc
 mv moby-runc* $root/opt/runc/
 mv moby-containerd* $root/opt/containerd/
 
@@ -48,10 +49,6 @@ mv $root/opt/cni/bin/10-azure.conflist $root/etc/cni/net.d/10-azure.conflist
 wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni-plugins-linux-amd64-v1.0.1.tgz
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
-
-ls -al 
-ls -al $root
-ls -al $work
 
 tar -cvzf artifacts-$kube_version.tar.gz -C $root .
 tar -tzf artifacts-$kube_version.tar.gz
