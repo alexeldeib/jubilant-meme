@@ -13,13 +13,25 @@
     (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        oras = pkgs.callPackage ./oras-overrides.nix {};
       in
       with pkgs;
       {
         # Utilized by `nix build`
         packages = {
           # default = stdenv.mkDerivation { };
+          jsonpatch = pkgs.buildGoModule rec {
+            name = "jsonpatch";
+            version = "5.6.0";
+            src = pkgs.fetchFromGitHub rec {
+              owner = "evanphx";
+              repo = "json-patch";
+              rev = "v${version}";
+              sha256 = "sha256-cy9O5v8SiYSCA+qxTc8mExZB5z1oe9J/5UToe4yCOHc=";
+            };
+            modRoot = "./v5";
+            vendorSha256 = "sha256-uE4+AN3gU+R2zuJvzyC0nPLpDRjSfg92Stit+xbBNHg=";
+          };
+          oras = pkgs.callPackage ./oras-overrides.nix {};
         };
 
         # defaultPackage = self.packages.${system}.default;
@@ -35,9 +47,10 @@
             cue
             conftest
             go
+            self.packages.${system}.jsonpatch
             jq
             moreutils
-            oras
+            self.packages.${system}.oras
             packer
           ];
         };

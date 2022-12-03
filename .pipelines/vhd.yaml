@@ -23,8 +23,6 @@ stages:
     steps:
     - bash: ./scripts/install-nix.sh
       displayName: install nix
-    - bash: go install github.com/evanphx/json-patch/cmd/json-patch@latest
-      displayName: install jsonpatch
     - bash: |-
         set -euxo pipefail
         echo "starting build"
