@@ -14,8 +14,9 @@ stages:
     - bash: ./scripts/install-nix.sh
       displayName: install nix
     - bash: |-
-        set -euo pipefail
+        set -euxo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix develop -c packer version
+        nix develop
+        packer version
       displayName: install dependencies
