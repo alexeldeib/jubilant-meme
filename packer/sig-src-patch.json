@@ -1,0 +1,13 @@
+[
+    { 
+        "op": "add", 
+        "path": "/builders/0/shared_image_gallery", 
+        "value": {
+            "subscription": "{{user `source_subscription_id`}}",
+            "resource_group": "{{user `source_resource_group_name`}}",
+            "gallery_name": "{user `source_gallery_name`}",
+            "image_name": "{{user `source_image_name`}}",
+            "image_version": "{{ user `source_image_version`}}"
+        }
+    }
+]

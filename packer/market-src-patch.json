@@ -1,0 +1,6 @@
+[
+    { "op": "add", "path": "/builders/0/image_publisher", "value": "{{user `img_publisher`}}" },
+    { "op": "add", "path": "/builders/0/image_offer", "value": "{{user `img_offer`}}" },
+    { "op": "add", "path": "/builders/0/image_sku", "value": "{{user `img_sku`}}" },
+    { "op": "add", "path": "/builders/0/image_version", "value": "{{user `img_version`}}" }
+]

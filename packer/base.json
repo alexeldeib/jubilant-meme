@@ -1,0 +1,35 @@
+{
+    "builders": [
+      {
+        "type": "azure-arm",
+        "virtual_network_name": "packer-vnet",
+        "virtual_network_subnet_name": "packer",
+        "ssh_timeout": "3h",
+        "os_type": "Linux",
+        "os_disk_size_gb": 512,
+        "azure_tags": {
+          "SkipLinuxAzSecPack": "true",
+          "os": "Linux",
+          "createdBy": "aks-vhd-pipeline"
+        },
+        "location": "eastus",
+        "vm_size": "Standard_D4ads_v5",
+        "polling_duration_timeout": "1h"
+      }
+    ],
+    "provisioners": [
+      {
+        "type": "shell",
+        "inline": [
+          "sudo /bin/bash -ux /home/packer/install-dependencies.sh"
+        ]
+      },
+      {
+        "type": "shell",
+        "inline": [
+          "sudo /usr/sbin/waagent -force -deprovision+user",
+          "export HISTSIZE=0 && sync"
+        ]
+      }
+    ]
+}
