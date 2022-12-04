@@ -37,6 +37,7 @@ stages:
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
         GROUP="$(mktemp -u ace-XXXXXXX | tr '[:upper:]' '[:lower:]')"
+        echo $GROUP > groupname.txt
         GALLERY="$(echo $GROUP | tr -d '-')"
         export GALLERY
         export GROUP
@@ -74,6 +75,6 @@ stages:
       name: build
     - bash: |-
         set -euxo pipefail
-        az group delete -y --no-wait -g $(build.groupname)
+        az group delete -y --no-wait -g $(cat groupname.txt)
       displayName: cleanup
       condition: always()

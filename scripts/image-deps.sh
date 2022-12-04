@@ -65,3 +65,5 @@ EOF
 
 containerd config default > /etc/containerd/config.toml
 systemctl enable --now containerd
+
+which waagent
