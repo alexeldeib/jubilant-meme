@@ -43,9 +43,10 @@ stages:
         export GROUP
         export SUBSCRIPTION
         echo "sku = $(sku)"
-        echo "config.generation = $(config.generation)"
         export kube_version="$(kube_version)"
         export sku="$(sku)"
+        generation="$(nix develop -c bash -c "cue export matrix.cue | jq -r --arg sku $sku '.skus[\"$sku\"].generation'")"
+        echo "generation = ${generation}"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
         az sig create -g $GROUP -r $GALLERY
@@ -57,7 +58,7 @@ stages:
           --offer $GALLERY \
           --sku $(echo $(sku) | tr -d '-') \
           --os-type Linux \
-          --hyper-v-generation $(config.generation) \
+          --hyper-v-generation ${generation} \
           --location eastus 
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
