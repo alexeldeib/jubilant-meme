@@ -22,6 +22,11 @@
     "provisioners": [
       {
         "type": "file",
+        "source": "scripts/install-sudo.sh",
+        "destination": "/home/packer/install-sudo.sh"
+      },
+      {
+        "type": "file",
         "source": "scripts/image-deps.sh",
         "destination": "/home/packer/image-deps.sh"
       },
@@ -34,6 +39,12 @@
         "type": "shell",
         "inline": [
           "/bin/bash -ux /home/packer/image-deps.sh"
+        ]
+      },
+      {
+        "type": "shell",
+        "inline": [
+          "sudo /bin/bash -ux /home/packer/image-deps.sh"
         ]
       },
       {
