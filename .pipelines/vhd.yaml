@@ -15,9 +15,8 @@ stages:
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix develop -c cachix use alexeldeib
-        ./scripts/matrix.sh 
-        cat matrix.json | jq -r tojson | sed 's/\\//g'
-        scenarios=$(./scripts/matrix.sh | jq -r tojson | sed 's/\\//g')
+        ./scripts/matrix.sh
+        scenarios=$(./scripts/matrix.sh)
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios
       name: matrix
   - job: build
@@ -44,6 +43,7 @@ stages:
         export GROUP
         export SUBSCRIPTION
         echo "sku = $(sku)"
+        echo "config.generation = $(config.generation)"
         export kube_version="$(kube_version)"
         export sku="$(sku)"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
@@ -57,7 +57,7 @@ stages:
           --offer $GALLERY \
           --sku $(echo $(sku) | tr -d '-') \
           --os-type Linux \
-          --hyper-v-generation V2 \
+          --hyper-v-generation $(config.generation) \
           --location eastus 
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
