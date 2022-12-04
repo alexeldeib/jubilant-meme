@@ -15,7 +15,8 @@ stages:
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix develop -c cachix use alexeldeib
-        ./scripts/matrix.sh | jq -r tojson | sed 's/\\//g'
+        ./scripts/matrix.sh 
+        cat matrix.json | jq -r tojson | sed 's/\\//g'
         scenarios=$(./scripts/matrix.sh | jq -r tojson | sed 's/\\//g')
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios
       name: matrix
