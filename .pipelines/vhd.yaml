@@ -45,7 +45,7 @@ stages:
         echo "sku = $(sku)"
         export kube_version="$(kube_version)"
         export sku="$(sku)"
-        generation="$(cue export matrix.cue | jq -r --arg sku $sku '.skus."$sku".generation')"
+        generation="$(cue export matrix.cue | jq -r --arg sku $sku '.skus[$sku].generation')"
         echo "generation = ${generation}"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
@@ -63,7 +63,7 @@ stages:
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
         patches=""
-        patchFiles="$(cue export matrix.cue | jq -r --arg sku $sku '.skus."$sku".patches[]')"
+        patchFiles="$(cue export matrix.cue | jq -r --arg sku $sku '.skus[$sku].patches[]')"
         for file in $patchFiles; do
           patches="$patches -p $file"
         done
