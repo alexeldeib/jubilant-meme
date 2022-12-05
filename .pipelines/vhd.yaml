@@ -15,9 +15,8 @@ stages:
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         echo "started"
-        nix develop < /dev/null
+        nix develop
         echo "finished"
-        nix develop -c cachix use alexeldeib
         ./scripts/matrix.sh
         scenarios=$(./scripts/matrix.sh)
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios

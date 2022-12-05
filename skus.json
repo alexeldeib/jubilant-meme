@@ -1,0 +1,19 @@
+{
+  "ubuntu-18-04-gen1": { },
+  "ubuntu-18-04-gen1-fips": { },
+  "ubuntu-18-04-gen1-gpu": { },
+  "ubuntu-18-04-gen1-fips-gpu": { },
+  "ubuntu-18-04-gen2": { },
+  "ubuntu-18-04-gen2-fips": { },
+  "ubuntu-18-04-gen2-gpu": { },
+  "ubuntu-18-04-gen2-fips-gpu": { },
+  "ubuntu-20-04-gen2-cvm": { },
+  "ubuntu-22-04-gen1": { },
+  "ubuntu-22-04-gen2": { },
+  "ubuntu-22-04-gen2-arm64": { },
+  "mariner-1-gen1": { },
+  "mariner-2-gen2": { },
+  "mariner-2-gen2-kata": { },
+  "mariner-2-gen2-tl": { },
+  "mariner-2-gen2-kata-tl": { }
+}

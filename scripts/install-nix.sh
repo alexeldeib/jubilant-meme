@@ -48,4 +48,5 @@ EOF
 sudo chown $(whoami) $HOME/.config/nix/nix.conf
 
 sudo pkill nix-daemon
-nix develop -c cachix use alexeldeib
+nix profile install nixpkgs#cachix
+cachix use alexeldeib
