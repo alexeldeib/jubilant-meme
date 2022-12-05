@@ -13,16 +13,17 @@ stages:
     - bash: ./scripts/install-nix.sh
     - bash: |
         set -eux
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
         echo "started"
         foo="bar"
         nix develop <<'EOF'
+          packer versions
           echo "inside nix develop"
           echo "still inside"
           echo "okay leaving!"
           echo "$foo may be empty?"
         EOF
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
         echo "finished"
         ./scripts/matrix.sh
         scenarios=$(./scripts/matrix.sh)
@@ -53,7 +54,7 @@ stages:
         echo "sku = $(sku)"
         export kube_version="$(kube_version)"
         export sku="$(sku)"
-        generation="$(nix develop -c bash -c "cue export matrix.cue | jq -r --arg sku $sku '.skus[\"$sku\"].generation'")"
+        generation="$(cue export matrix.cue | jq -r --arg sku $sku '.skus."$sku".generation')"
         echo "generation = ${generation}"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
@@ -71,16 +72,14 @@ stages:
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
         echo "kube_version $(kube_version)"
         patches=""
-        patchFiles="$(nix develop -c bash -c "cue export matrix.cue | jq -r --arg sku $sku '.skus[\"$sku\"].patches[]'")"
+        patchFiles="$(cue export matrix.cue | jq -r --arg sku $sku '.skus."$sku".patches[]')"
         for file in $patchFiles; do
           patches="$patches -p $file"
         done
 
-        nix develop -c bash ./scripts/package.sh
-        nix develop -c bash -c "json-patch $patches < packer/base.json | jq | tee $outfile"
-        sleep 60
-        export PACKER_LOG=1
-        nix develop -c packer build -var-file=packer/$sku.json $outfile
+        ./scripts/package.sh
+        json-patch $patches < packer/base.json | jq | tee $outfile
+        packer build -var-file=packer/$sku.json $outfile
       displayName: install dependencies
       name: build
     - bash: |-
