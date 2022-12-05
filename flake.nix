@@ -51,7 +51,7 @@
 
         # Utilized by `nix develop`
         devShell = mkShell {
-          buildInputs = builtins.attrValues deps;
+          buildInputs = builtins.attrValues deps ++ [ self.packages.${system}.jsonpatch self.packages.${system}.oras ];
           # buildInputs = [
           #   cachix
           #   cue

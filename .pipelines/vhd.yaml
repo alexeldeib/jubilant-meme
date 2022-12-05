@@ -34,7 +34,7 @@ stages:
         set -euxo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix develop -c cachix use alexeldeib
+        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
 
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
