@@ -13,6 +13,7 @@ stages:
     - bash: ./scripts/install-nix.sh
     - bash: |
         set -eux
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         echo "started"
         foo="bar"
         nix develop <<'EOF'
@@ -22,7 +23,6 @@ stages:
           echo "okay leaving!"
           echo "$foo may be empty?"
         EOF
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
         echo "finished"
         ./scripts/matrix.sh
