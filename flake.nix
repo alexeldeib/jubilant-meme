@@ -13,6 +13,15 @@
     (system:
       let
         pkgs = import nixpkgs { inherit system; };
+        deps = {
+          cachix = pkgs.cachix;
+          cue = pkgs.cue;
+          conftest = pkgs.conftest;
+          go = pkgs.go;
+          jq = pkgs.jq;
+          moreutils = pkgs.moreutils;
+          packer = pkgs.packer;
+        };
       in
       with pkgs;
       {
@@ -32,9 +41,9 @@
             vendorSha256 = "sha256-uE4+AN3gU+R2zuJvzyC0nPLpDRjSfg92Stit+xbBNHg=";
           };
           oras = pkgs.callPackage ./oras-overrides.nix {};
-        };
+        } // deps;
 
-        # defaultPackage = self.packages.${system}.default;
+        # defaultPackage = self.packages.${system};
 
         # Utilized by `nix bundle -- .#<name>`
         # bundlers.default = bundlers.bundlers.${system}.toArx;
@@ -42,18 +51,18 @@
 
         # Utilized by `nix develop`
         devShell = mkShell {
-          buildInputs = [
-            act
-            cachix
-            cue
-            conftest
-            go
-            self.packages.${system}.jsonpatch
-            jq
-            moreutils
-            self.packages.${system}.oras
-            packer
-          ];
+          buildInputs = builtins.attrValues deps;
+          # buildInputs = [
+          #   cachix
+          #   cue
+          #   conftest
+          #   go
+          #   self.packages.${system}.jsonpatch
+          #   jq
+          #   moreutils
+          #   self.packages.${system}.oras
+          #   packer
+          # ];
         };
 
         # # Utilized by `nix develop .#<name>`

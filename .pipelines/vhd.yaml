@@ -14,6 +14,9 @@ stages:
     - bash: |
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        echo "started"
+        nix develop < /dev/null
+        echo "finished"
         nix develop -c cachix use alexeldeib
         ./scripts/matrix.sh
         scenarios=$(./scripts/matrix.sh)
