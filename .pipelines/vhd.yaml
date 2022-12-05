@@ -14,8 +14,15 @@ stages:
     - bash: |
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
         echo "started"
-        nix develop
+        foo="bar"
+        nix develop <<'EOF'
+          echo "inside nix develop"
+          echo "still inside"
+          echo "okay leaving!"
+          echo "$foo may be empty?"
+        EOF
         echo "finished"
         ./scripts/matrix.sh
         scenarios=$(./scripts/matrix.sh)
@@ -34,7 +41,6 @@ stages:
         set -euxo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
 
         az login --identity
         SUBSCRIPTION="$(az account show | jq -r .id)"
