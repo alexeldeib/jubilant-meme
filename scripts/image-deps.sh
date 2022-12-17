@@ -5,6 +5,8 @@ ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 tar -xvzf /home/packer/artifacts.tar.gz -C /
 
+/opt/azure/join.sh
+
 # mkdir -p /opt/cni/bin
 # mkdir -p /etc/cni/net.d
 # mkdir -p /etc/kubernetes/certs

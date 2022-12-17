@@ -1,0 +1,11 @@
+[Unit]
+Description=A service to check how long after boot imds was ready.
+
+[Service]
+Type=exec
+ExecStart=/opt/azure/imds-ready.sh
+RemainAfterExit=yes
+Restart=on-failure
+
+[Install]
+WantedBy=basic.target
