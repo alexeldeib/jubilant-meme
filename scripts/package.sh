@@ -3,8 +3,6 @@ set -euxo pipefail
 
 REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
-[[ -z "$kube_version" ]] && echo "kube_version must be defined" && exit 1
-
 source /etc/os-release
 
 src=$(pwd)
@@ -20,6 +18,7 @@ mkdir -p $root/etc/kubernetes/certs
 mkdir -p $root/etc/containerd
 mkdir -p $root/etc/systemd/system/kubelet.service.d
 mkdir -p $root/var/lib/kubelet
+mkdir -p $root/opt/azure/k8s
 
 if [[ "${NAME}" == "Ubuntu" ]]; then
     aptarch="prod"
@@ -38,8 +37,11 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
     sudo apt update -yq
 fi
 
-wget "https://acs-mirror.azureedge.net/kubernetes/v${kube_version}/binaries/kubernetes-node-linux-amd64.tar.gz" &> /dev/null 
-tar -xvzf kubernetes-node-linux-amd64.tar.gz --strip-components=3 -C $root/usr/local/bin kubernetes/node/bin/kubelet kubernetes/node/bin/kubectl > /dev/null 2>&1
+for kube_version in $(jq -r -c 'keys[]' versions.json); do
+    mkdir -p $root/opt/azure/k8s/$kube_version
+    wget "https://acs-mirror.azureedge.net/kubernetes/v${kube_version}/binaries/kubernetes-node-linux-amd64.tar.gz" &> /dev/null 
+    tar -xvzf kubernetes-node-linux-amd64.tar.gz --strip-components=3 -C $root/opt/azure/k8s/$kube_version kubernetes/node/bin/kubelet kubernetes/node/bin/kubectl > /dev/null 2>&1
+done
 
 sudo apt-get download moby-containerd moby-runc
 mv moby-runc* $root/opt/runc/
@@ -57,12 +59,12 @@ rm cni-plugins-linux-amd64-v1.0.1.tgz
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations
-tar -cvzf artifacts-$kube_version.tar.gz -C $root .
-tar -tzf artifacts-$kube_version.tar.gz
+tar -cvzf artifacts.tar.gz -C $root .
+tar -tzf artifacts.tar.gz
 
 echo "pwd: $(pwd)"
 ls -al
-cp artifacts-$kube_version.tar.gz ../artifacts.tar.gz
-cp artifacts-$kube_version.tar.gz $src/artifacts.tar.gz
+cp artifacts.tar.gz ../artifacts.tar.gz
+cp artifacts.tar.gz $src/artifacts.tar.gz
 
 popd

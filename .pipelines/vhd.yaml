@@ -43,7 +43,7 @@ stages:
         export GROUP
         export SUBSCRIPTION
         echo "sku = $(sku)"
-        export kube_version="$(kube_version)"
+        # export kube_version="$(kube_version)"
         export sku="$(sku)"
         generation="$(cue export matrix.cue | jq -r --arg sku $sku '.skus[$sku].generation')"
         echo "generation = ${generation}"
@@ -61,7 +61,7 @@ stages:
           --hyper-v-generation ${generation} \
           --location eastus 
         outfile=$(mktemp --suffix=.json packer-out-XXXX)
-        echo "kube_version $(kube_version)"
+        # echo "kube_version $(kube_version)"
         patches=""
         patchFiles="$(cue export matrix.cue | jq -r --arg sku $sku '.skus[$sku].patches[]')"
         for file in $patchFiles; do
