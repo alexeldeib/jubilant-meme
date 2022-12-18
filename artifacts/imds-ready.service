@@ -3,7 +3,7 @@ Description=A service to check how long after boot imds was ready.
 
 [Service]
 Type=exec
-ExecStart=/opt/azure/imds-ready.sh
+ExecStart=/bin/bash /opt/azure/imds-ready.sh
 RemainAfterExit=yes
 Restart=on-failure
 
