@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -euxo pipefail
 
 REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
