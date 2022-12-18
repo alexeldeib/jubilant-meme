@@ -5,4 +5,5 @@ echo "started at $(date -Isec)"
 until test "$res" != "0"; do
    echo "the curl command failed with: $res"
 done
-echo "imds reachable at $(date -Isec)"
+msg="imds reachable at $(date -Isec)"
+# systemd-notify --ready --status="$msg"
