@@ -14,7 +14,7 @@ stages:
     - bash: |
         set -eux
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
+        nix flake show --json | jq  '.packages."x86_64-linux" | keys[]' | xargs -I {} nix profile install .#{}
         ./scripts/matrix.sh
         scenarios=$(./scripts/matrix.sh)
         echo "##vso[task.setVariable variable=output;isOutput=true]"$scenarios

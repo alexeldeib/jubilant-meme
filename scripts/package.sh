@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-REPO_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
+REPO_ROOT=$(realpath $(dirname "${BASH_SOURCE[0]}")/..)
 
 source /etc/os-release
 
