@@ -15,4 +15,4 @@ systemctl status imds-ready.service
 sleep 2
 journalctl -u imds-ready --no-tail
 systemd-analyze critical-chain
-systemd-analyze critical-chain imds-ready
+systemd-analyze critical-chain imds-ready.service
