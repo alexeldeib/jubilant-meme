@@ -14,7 +14,7 @@
       let
         pkgs = import nixpkgs { inherit system; };
         deps = {
-          cachix = pkgs.cachix;
+          # cachix = pkgs.cachix;
           cue = pkgs.cue;
           conftest = pkgs.conftest;
           go = pkgs.go;
