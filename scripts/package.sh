@@ -57,13 +57,13 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
 
-cp $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service
+cp -a $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service
 chmod a=r,o=w $root/etc/systemd/system/kubelet-ready.service
-cp $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh
+cp -a $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh
 chmod a=rx $root/opt/azure/join.sh
-cp $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service
+cp -a $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service
 chmod a=r,o=w $root/etc/systemd/system/imds-ready.service
-cp $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh
+cp -a $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh
 chmod a=rx $root/opt/azure/join.sh
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
