@@ -2,6 +2,7 @@
 Description=A service to start during node join and wait until kubelet reports ready.
 Requires=kubelet.service
 After=kubelet.service
+BindsTo=kubelet.service
 ConditionPathExists=!/opt/azure/kubelet-first-ready
 
 [Service]

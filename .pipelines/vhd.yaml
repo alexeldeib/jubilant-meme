@@ -71,6 +71,7 @@ stages:
         ./scripts/package.sh
         json-patch $patches < packer/base.json | jq | tee $outfile
         packer build -var-file=packer/$sku.json $outfile
+        az vm create -g ${GROUP} -n ${GROUP}-${sku} --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1
       displayName: install dependencies
       name: build
     - bash: |-
