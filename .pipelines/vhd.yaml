@@ -80,8 +80,8 @@ stages:
           sleep 2
         done
         ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
-        ssh azureuser@${PRIVATE_IP} sudo bash -c 'journalctl --no-tail -u imds-ready > /tmp/imds-ready-logs; systemctl status imds-ready >> /tmp/imds-ready'
-        scp azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
+        ssh -i /tmp/sshkey azureuser@${PRIVATE_IP} sudo bash -c 'journalctl --no-tail -u imds-ready > /tmp/imds-ready-logs; systemctl status imds-ready >> /tmp/imds-ready'
+        scp -i /tmp/sshkey azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
         cat /tmp/imds-ready-logs
 
       displayName: install dependencies
