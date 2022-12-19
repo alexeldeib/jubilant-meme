@@ -29,7 +29,7 @@ stages:
     - bash: ./scripts/install-nix.sh
       displayName: install nix
     - bash: |-
-        set -euxo pipefail
+        set -uxo pipefail
         echo "starting build"
         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
         nix flake show --json | jq  '.packages."x86_64-linux"|keys[]'| xargs -I {} nix profile install .#{}
@@ -75,6 +75,10 @@ stages:
         az vm create -g ${GROUP} -n ${GROUP}-${sku} --public-ip-address "" --ssh-key-values /tmp/sshkey.pub --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --vnet-name nodesig-pool-vnet --subnet packer
         az vm show -g ${GROUP} -n ${GROUP}-${sku} -d
         PRIVATE_IP=$(az vm show -g ${GROUP} -n ${GROUP}-${sku} -d --query privateIps -d --out tsv)
+        until ssh azureuser@${PRIVATE_IP}
+        do
+          sleep 2
+        done
         ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
         ssh azureuser@${PRIVATE_IP} sudo bash -c 'journalctl --no-tail -u imds-ready > /tmp/imds-ready-logs; systemctl status imds-ready >> /tmp/imds-ready'
         scp azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
