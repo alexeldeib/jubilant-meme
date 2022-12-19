@@ -72,7 +72,7 @@ stages:
         json-patch $patches < packer/base.json | jq | tee $outfile
         packer build -var-file=packer/$sku.json $outfile
         ssh-keygen -b 4096 -t rsa -f /tmp/sshkey -q -N ""
-        az vm create -g ${GROUP} -n ${GROUP}-${sku} --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --vnet-name nodesig-pool-vnet --subnet packer
+        az vm create -g ${GROUP} -n ${GROUP}-${sku} --ssh-key-values /tmp/sshkey --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --vnet-name nodesig-pool-vnet --subnet packer
         az vm show -g ${GROUP} -n ${GROUP}-${sku}
       displayName: install dependencies
       name: build
