@@ -17,7 +17,7 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
     wget https://packages.microsoft.com/keys/microsoft.asc
     gpg --dearmor < microsoft.asc > microsoft.gpg
     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
-    sudo apt update -yq
+    sudo apt-get update -yq
 fi
 
 export DEBIAN_FRONTEND=noninteractive
