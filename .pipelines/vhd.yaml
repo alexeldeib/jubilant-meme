@@ -93,7 +93,8 @@ stages:
 
         retrycmd_if_failure 60 1 3 nc -vz $PRIVATE_IP 22
         retrycmd_if_failure 10 1 3 ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
-        ssh -i /tmp/sshkey azureuser@${PRIVATE_IP} bash -c 'sudo systemctl status imds-ready.service >> /tmp/imds-ready'
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl status imds-ready.service >> /tmp/imds-ready-logs"
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} bash -c 'systemctl status imds-ready.service >> /tmp/imds-ready-logs'
         scp -i /tmp/sshkey azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
         cat /tmp/imds-ready-logs
 
