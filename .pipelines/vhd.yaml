@@ -75,11 +75,23 @@ stages:
         az vm create -g ${GROUP} -n ${GROUP}-${sku} --authentication-type all --admin-password Azureuser1!!! --admin-username azureuser --public-ip-address "" --ssh-key-values /tmp/sshkey.pub --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --subnet /subscriptions/$SUBSCRIPTION/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/virtualNetworks/nodesig-pool-vnet/subnets/packer --nsg /subscriptions/8ecadfc9-d1a3-4ea4-b844-0d9f87e4d7c8/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/networkSecurityGroups/nodesig-agent-nsg
         az vm show -g ${GROUP} -n ${GROUP}-${sku} -d
         PRIVATE_IP=$(az vm show -g ${GROUP} -n ${GROUP}-${sku} -d --query privateIps -d --out tsv)
-        until ssh -i /tmp/sshkey -T azureuser@${PRIVATE_IP}
-        do
-          sleep 2
-        done
-        ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
+
+        retrycmd_if_failure() {
+            local retries=$1; local wait_sleep=$2; local timeout=$3; shift && shift && shift
+            for i in $(seq 1 $retries); do
+                timeout $timeout ${@} && break || \
+                if [ $i -eq $retries ]; then
+                    echo Executed \"$@\" $i times;
+                    return 1
+                else
+                    sleep $wait_sleep
+                fi
+            done
+            echo Executed \"$@\" $i times;
+        }
+
+        retrycmd_if_failure 60 1 3 nc -vz $PRIVATE_IP 22
+        retrycmd_if_failure 10 1 3 ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
         ssh -i /tmp/sshkey azureuser@${PRIVATE_IP} sudo bash -c 'journalctl --no-tail -u imds-ready > /tmp/imds-ready-logs; systemctl status imds-ready >> /tmp/imds-ready'
         scp -i /tmp/sshkey azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
         cat /tmp/imds-ready-logs
