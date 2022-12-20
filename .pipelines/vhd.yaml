@@ -49,6 +49,7 @@ stages:
         echo "generation = ${generation}"
         echo "##vso[task.setVariable variable=groupname;isOutput=true]"$GROUP
         az group create -g "${GROUP}" -l "eastus" --tags "aleldeib=true"
+        az storage account create -g $GROUP -n $GALLERY --sku Standard_LRS --kind StorageV2
         az sig create -g $GROUP -r $GALLERY
         az sig image-definition create \
           --resource-group ${GROUP} \
