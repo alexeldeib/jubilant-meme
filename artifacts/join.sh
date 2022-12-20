@@ -6,7 +6,7 @@ apt-get update -yq
 apt-get \
   -o Dpkg::Options::="--force-confnew" \
   -o Dpkg::Options::="--force-confdef" \
-  -yq install \ 
+  -yq install \
   apt-transport-https \
   ca-certificates \
   ceph-common \
@@ -48,9 +48,9 @@ apt-get \
   make \
   dkms \
   initramfs-tools \
-  linux-headers-$(uname -r)
+  linux-headers-$(uname -r) || exit 1
 
-bash /opt/azure/cis.sh
+bash /opt/azure/cis.sh || exit 1
 
 systemctl enable disk-queue.service
 systemctl restart disk-queue.service
