@@ -72,6 +72,11 @@ cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_send_logs.py $root/opt/azure/containers/cse_send_logs.py a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_redact_cloud_config.py $root/opt/azure/containers/cse_redact_cloud_config.py a=rx
+cpAndMode $REPO_ROOT/artifacts/80_azure_net_config.cfg $root/etc/cloud/cloud.cfg.d/80_azure_net_config.cfg 0640
+cpAndMode $REPO_ROOT/artifacts/sysctl-d-60-CIS.conf $root/etc/sysctl.d/60-CIS.conf 0644
+cpAndMode $REPO_ROOT/artifacts/rsyslog-d-60-CIS.conf $root/etc/rsyslog.d/60-CIS.conf 0644
+cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue 0644
+cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue.net 0644
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations
