@@ -7,7 +7,7 @@
         "virtual_network_resource_group_name": "nodesigtest-agent-pool",
         "virtual_network_name": "nodesig-pool-vnet",
         "virtual_network_subnet_name": "packer",
-        "boot_diag_storage_account": "https://{{user `dest_gallery_name`}}.blob.core.windows.net",
+        "boot_diag_storage_account": "{{user `dest_gallery_name`}}",
         "ssh_timeout": "3h",
         "os_type": "Linux",
         "os_disk_size_gb": 512,
