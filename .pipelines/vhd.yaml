@@ -70,12 +70,12 @@ stages:
 
         ./scripts/package.sh
         json-patch $patches < packer/base.json | jq | tee $outfile
-        packer build -var-file=packer/$sku.json $outfile
+        packer build -var-file=packer/$sku.json $outfile || exit 1
         ssh-keygen -b 4096 -t rsa -f /tmp/sshkey -q -N ""
         az vm create -g ${GROUP} -n ${GROUP}-${sku} --public-ip-address "" --ssh-key-values /tmp/sshkey.pub --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --subnet /subscriptions/$SUBSCRIPTION/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/virtualNetworks/nodesig-pool-vnet/subnets/packer
         az vm show -g ${GROUP} -n ${GROUP}-${sku} -d
         PRIVATE_IP=$(az vm show -g ${GROUP} -n ${GROUP}-${sku} -d --query privateIps -d --out tsv)
-        until ssh azureuser@${PRIVATE_IP}
+        until ssh -i /tmp/sshkey  azureuser@${PRIVATE_IP}
         do
           sleep 2
         done
