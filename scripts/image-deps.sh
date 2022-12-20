@@ -5,7 +5,7 @@ ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
 mkdir /tmp/artifacts
 tar -xvzf /home/packer/artifacts.tar.gz -C /tmp/artifacts
-find /tmp/artifacts ! -path /tmp/artifacts | xargs -I{} bash -c 'src="{}"; dst="/$(echo {} | cut -d\/ -f3-)"; mv "$src" "$dst"'
+find /tmp/artifacts -type f | xargs -I{} bash -c 'src="{}"; dst="/$(echo {} | cut -d\/ -f4-)"; mkdir -p $(dirname "$dst") && mv "$src" "$dst" || exit 1'
 
 /opt/azure/join.sh
 
