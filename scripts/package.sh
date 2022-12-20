@@ -19,6 +19,7 @@ mkdir -p $root/etc/containerd
 mkdir -p $root/etc/systemd/system/kubelet.service.d
 mkdir -p $root/var/lib/kubelet
 mkdir -p $root/opt/azure/k8s
+mkdir -p $root/opt/azure/containers
 
 if [[ "${NAME}" == "Ubuntu" ]]; then
     aptarch="prod"
@@ -50,6 +51,7 @@ mv moby-containerd* $root/opt/containerd/
 # azure cni (only)
 wget https://github.com/Azure/azure-container-networking/releases/download/v1.4.12/azure-vnet-cni-linux-amd64-v1.4.12.tgz  &> /dev/null
 tar -xvzf azure-vnet-cni-linux-amd64-v1.4.12.tgz -C $root/opt/cni/bin
+# TODO: don't move into final location until join.
 mv $root/opt/cni/bin/10-azure.conflist $root/etc/cni/net.d/10-azure.conflist
 
 # cni plugins
@@ -57,18 +59,19 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
 
-cp -a $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service
-chmod a=r,o=w $root/etc/systemd/system/kubelet-ready.service
-cp -a $REPO_ROOT/artifacts/disk_queue.service $root/etc/systemd/system/disk_queue.service
-chmod a=r,o=w $root/etc/systemd/system/disk_queue.service
-cp -a $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh
-chmod a=rx $root/opt/azure/join.sh
-cp -a $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service
-chmod a=r,o=w $root/etc/systemd/system/imds-ready.service
-cp -a $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh
-chmod a=rx $root/opt/azure/imds-ready.sh
-cp -a $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh
-chmod a=rx $root/opt/azure/cis.sh
+cpAndMode() {
+  src=$1; dest=$2; mode=$3
+  DIR=$(dirname "$dest") && mkdir -p ${DIR} && cp -a $src $dest && chmod $mode $dest || exit 1
+}
+
+cpAndMode $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service a=r,o=w
+cpAndMode $REPO_ROOT/artifacts/disk_queue.service $root/etc/systemd/system/disk_queue.service a=r,o=w
+cpAndMode $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh a=rx
+cpAndMode $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service a=r,o=w
+cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
+cpAndMode $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh a=rx
+cpAndMode $REPO_ROOT/artifacts/cse_send_logs.py $root/opt/azure/containers/cse_send_logs.py a=rx
+cpAndMode $REPO_ROOT/artifacts/cse_redact_cloud_config.py $root/opt/azure/containers/cse_redact_cloud_config.py a=rx
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations
