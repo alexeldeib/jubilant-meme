@@ -72,9 +72,14 @@ cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_send_logs.py $root/opt/azure/containers/cse_send_logs.py a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_redact_cloud_config.py $root/opt/azure/containers/cse_redact_cloud_config.py a=rx
-cpAndMode $REPO_ROOT/artifacts/80_azure_net_config.cfg $root/etc/cloud/cloud.cfg.d/80_azure_net_config.cfg 0640
-cpAndMode $REPO_ROOT/artifacts/sysctl-d-60-CIS.conf $root/etc/sysctl.d/60-CIS.conf 0644
-cpAndMode $REPO_ROOT/artifacts/rsyslog-d-60-CIS.conf $root/etc/rsyslog.d/60-CIS.conf 0644
+cpAndMode $REPO_ROOT/artifacts/80_azure_net_config.cfg $root/etc/cloud/cloud.cfg.d/80_azure_net_config.cfg g=r,=rw
+cpAndMode $REPO_ROOT/artifacts/sysctl-d-60-CIS.conf $root/etc/sysctl.d/60-CIS.conf a=r,o=rw
+cpAndMode $REPO_ROOT/artifacts/rsyslog-d-60-CIS.conf $root/etc/rsyslog.d/60-CIS.conf a=r,o=rw
+cpAndMode $REPO_ROOT/artifacts/modprobe-d-60-CIS.conf $root/etc/modprobe.d/CIS.conf a=r,o=rw
+cpAndMode $REPO_ROOT/artifacts/pwquality-CIS.conf $root/etc/security/pwquality.conf o=rw
+cpAndMode $REPO_ROOT/artifacts/pam-d-common-password $root/etc/pam.d/common-password a=r,o=rw
+cpAndMode $REPO_ROOT/artifacts/pam-d-su $root/etc/pam.d/su a=r,o=rw
+cpAndMode $REPO_ROOT/artifacts/profile-d-cis.sh $root/etc/profile.d/CIS.sh a=rx,o=rwx
 cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue 0644
 cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue.net 0644
 
