@@ -67,8 +67,8 @@ cpAndMode() {
 cpAndMode $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service a=r,o=w
 cpAndMode $REPO_ROOT/artifacts/disk-queue.service $root/etc/systemd/system/disk-queue.service a=r,o=w
 cpAndMode $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh a=rx
-cpAndMode $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service a=r,o=w
-cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
+# cpAndMode $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service a=r,o=w
+# cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_send_logs.py $root/opt/azure/containers/cse_send_logs.py a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_redact_cloud_config.py $root/opt/azure/containers/cse_redact_cloud_config.py a=rx

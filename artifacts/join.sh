@@ -54,14 +54,14 @@ bash /opt/azure/cis.sh || exit 1
 
 systemctl enable disk-queue.service
 systemctl restart disk-queue.service
-systemctl enable kubelet-ready.service
-systemctl enable imds-ready.service
-systemctl status kubelet-ready.service
-systemctl status imds-ready.service
-systemctl restart imds-ready.service
-sleep 5
-systemctl status imds-ready.service
-sleep 2
-journalctl -u imds-ready --no-tail
+# systemctl enable kubelet-ready.service
+# systemctl enable imds-ready.service
+# systemctl status kubelet-ready.service
+# systemctl status imds-ready.service
+# systemctl restart imds-ready.service
+# sleep 5
+# systemctl status imds-ready.service
+# sleep 2
+# journalctl -u imds-ready --no-tail
 systemd-analyze critical-chain
 systemd-analyze critical-chain imds-ready.service
