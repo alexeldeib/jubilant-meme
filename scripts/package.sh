@@ -64,7 +64,9 @@ chmod a=rx $root/opt/azure/join.sh
 cp -a $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service
 chmod a=r,o=w $root/etc/systemd/system/imds-ready.service
 cp -a $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh
-chmod a=rx $root/opt/azure/join.sh
+chmod a=rx $root/opt/azure/imds-ready.sh
+cp -a $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh
+chmod a=rx $root/opt/azure/cis.sh
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations

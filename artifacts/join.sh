@@ -5,6 +5,8 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -yq
 apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-confdef" -yq install jq
 
+bash /opt/azure/cis.sh
+
 systemctl enable kubelet-ready.service
 systemctl enable imds-ready.service
 systemctl status kubelet-ready.service
