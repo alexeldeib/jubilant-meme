@@ -72,7 +72,7 @@ stages:
         json-patch $patches < packer/base.json | jq | tee $outfile
         packer build -var-file=packer/$sku.json $outfile || exit 1
         ssh-keygen -b 4096 -t rsa -f /tmp/sshkey -q -N ""
-        az vm create -g ${GROUP} -n ${GROUP}-${sku} --public-ip-address "" --ssh-key-values /tmp/sshkey.pub --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --subnet /subscriptions/$SUBSCRIPTION/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/virtualNetworks/nodesig-pool-vnet/subnets/packer --nsg /subscriptions/8ecadfc9-d1a3-4ea4-b844-0d9f87e4d7c8/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/networkSecurityGroups/nodesig-agent-nsg
+        az vm create -g ${GROUP} -n ${GROUP}-${sku} --authentication-type all --admin-password azureuser --admin-username azureuser --public-ip-address "" --ssh-key-values /tmp/sshkey.pub --image /subscriptions/$SUBSCRIPTION/resourceGroups/$GROUP/providers/Microsoft.Compute/galleries/$GALLERY/images/$(echo $(sku) | tr -d '-')/versions/0.0.1 --subnet /subscriptions/$SUBSCRIPTION/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/virtualNetworks/nodesig-pool-vnet/subnets/packer --nsg /subscriptions/8ecadfc9-d1a3-4ea4-b844-0d9f87e4d7c8/resourceGroups/nodesigtest-agent-pool/providers/Microsoft.Network/networkSecurityGroups/nodesig-agent-nsg
         az vm show -g ${GROUP} -n ${GROUP}-${sku} -d
         PRIVATE_IP=$(az vm show -g ${GROUP} -n ${GROUP}-${sku} -d --query privateIps -d --out tsv)
         until ssh -i /tmp/sshkey -T azureuser@${PRIVATE_IP}
