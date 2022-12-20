@@ -72,7 +72,7 @@ cpAndMode $REPO_ROOT/artifacts/imds-ready.sh $root/opt/azure/imds-ready.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cis.sh $root/opt/azure/cis.sh a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_send_logs.py $root/opt/azure/containers/cse_send_logs.py a=rx
 cpAndMode $REPO_ROOT/artifacts/cse_redact_cloud_config.py $root/opt/azure/containers/cse_redact_cloud_config.py a=rx
-cpAndMode $REPO_ROOT/artifacts/80_azure_net_config.cfg $root/etc/cloud/cloud.cfg.d/80_azure_net_config.cfg g=r,=rw
+cpAndMode $REPO_ROOT/artifacts/80_azure_net_config.cfg $root/etc/cloud/cloud.cfg.d/80_azure_net_config.cfg g=r,o=rw
 cpAndMode $REPO_ROOT/artifacts/sysctl-d-60-CIS.conf $root/etc/sysctl.d/60-CIS.conf a=r,o=rw
 cpAndMode $REPO_ROOT/artifacts/rsyslog-d-60-CIS.conf $root/etc/rsyslog.d/60-CIS.conf a=r,o=rw
 cpAndMode $REPO_ROOT/artifacts/modprobe-d-CIS.conf $root/etc/modprobe.d/CIS.conf a=r,o=rw
@@ -90,7 +90,6 @@ cpAndMode $REPO_ROOT/artifacts/notice.txt $root/etc/logrotate.d/rsyslog 0444
 # TODO: distro specific logrotate
 # TODO: distro specific pam/sshd_config
 # cpAndMode $REPO_ROOT/artifacts/aks-logrotate.sh $root/usr/local/bin/logrotate.sh 0644
-
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations
