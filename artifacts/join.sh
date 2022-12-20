@@ -3,7 +3,52 @@ set -uo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -yq
-apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-confdef" -yq install jq
+apt-get \
+  -o Dpkg::Options::="--force-confnew" \
+  -o Dpkg::Options::="--force-confdef" \
+  -yq install \ 
+  apt-transport-https \
+  ca-certificates \
+  ceph-common \
+  cgroup-lite \
+  cifs-utils \
+  conntrack \
+  cracklib-runtime \
+  ebtables \
+  ethtool \
+  git \
+  glusterfs-client \
+  htop \
+  iftop \
+  init-system-helpers \
+  inotify-tools \
+  iotop \
+  iproute2 \
+  ipset \
+  iptables \
+  nftables \
+  jq \
+  libpam-pwquality \
+  libpwquality-tools \
+  mount \
+  nfs-common \
+  pigz \
+  socat \
+  sysfsutils \
+  sysstat \
+  traceroute \
+  util-linux \
+  xz-utils \
+  netcat \
+  dnsutils \
+  zip \
+  rng-tools \
+  kmod \
+  gcc \
+  make \
+  dkms \
+  initramfs-tools \
+  linux-headers-$(uname -r)
 
 bash /opt/azure/cis.sh
 
