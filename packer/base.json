@@ -15,7 +15,6 @@
           "os": "Linux",
           "createdBy": "aks-vhd-pipeline"
         },
-        "location": "eastus",
         "vm_size": "Standard_D4ads_v5",
         "polling_duration_timeout": "1h"
       }
