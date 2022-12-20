@@ -79,9 +79,18 @@ cpAndMode $REPO_ROOT/artifacts/modprobe-d-60-CIS.conf $root/etc/modprobe.d/CIS.c
 cpAndMode $REPO_ROOT/artifacts/pwquality-CIS.conf $root/etc/security/pwquality.conf o=rw
 cpAndMode $REPO_ROOT/artifacts/pam-d-common-password $root/etc/pam.d/common-password a=r,o=rw
 cpAndMode $REPO_ROOT/artifacts/pam-d-su $root/etc/pam.d/su a=r,o=rw
-cpAndMode $REPO_ROOT/artifacts/profile-d-cis.sh $root/etc/profile.d/CIS.sh a=rx,o=rwx
+cpAndMode $REPO_ROOT/artifacts/profile-d-cis.sh $root/etc/profile.d/CIS.sh 0755
 cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue 0644
 cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue.net 0644
+cpAndMode $REPO_ROOT/artifacts/etc-issue $root/etc/issue.net 0644
+cpAndMode $REPO_ROOT/artifacts/apt-preferences $root/etc/apt/preferences 0644
+cpAndMode $REPO_ROOT/artifacts/aks-rsyslog $root/etc/logrotate.d/rsyslog 0644
+cpAndMode $REPO_ROOT/artifacts/notice.txt $root/etc/logrotate.d/rsyslog 0444
+
+# TODO: distro specific logrotate
+# TODO: distro specific pam/sshd_config
+# cpAndMode $REPO_ROOT/artifacts/aks-logrotate.sh $root/usr/local/bin/logrotate.sh 0644
+
 
 # KEY: this packages everything into a tar archive with relative directories to the root fs (/)
 # this allows us to directly untar the entire package at once, with all files in the correct locations
