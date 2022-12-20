@@ -68,7 +68,7 @@ stages:
           patches="$patches -p $file"
         done
 
-        ./scripts/package.sh
+        ./scripts/package.sh || exit 1
         json-patch $patches < packer/base.json | jq | tee $outfile
         packer build -var-file=packer/$sku.json $outfile || exit 1
         ssh-keygen -b 4096 -t rsa -f /tmp/sshkey -q -N ""
