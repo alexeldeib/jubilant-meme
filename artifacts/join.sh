@@ -7,6 +7,8 @@ apt-get -o Dpkg::Options::="--force-confnew" -o Dpkg::Options::="--force-confdef
 
 bash /opt/azure/cis.sh
 
+systemctl enable disk-queue.service
+systemctl restart disk-queue.service
 systemctl enable kubelet-ready.service
 systemctl enable imds-ready.service
 systemctl status kubelet-ready.service

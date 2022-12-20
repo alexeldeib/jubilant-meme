@@ -59,6 +59,8 @@ rm cni-plugins-linux-amd64-v1.0.1.tgz
 
 cp -a $REPO_ROOT/artifacts/kubelet-ready.service $root/etc/systemd/system/kubelet-ready.service
 chmod a=r,o=w $root/etc/systemd/system/kubelet-ready.service
+cp -a $REPO_ROOT/artifacts/disk_queue.service $root/etc/systemd/system/disk_queue.service
+chmod a=r,o=w $root/etc/systemd/system/disk_queue.service
 cp -a $REPO_ROOT/artifacts/join.sh $root/opt/azure/join.sh
 chmod a=rx $root/opt/azure/join.sh
 cp -a $REPO_ROOT/artifacts/imds-ready.service $root/etc/systemd/system/imds-ready.service
