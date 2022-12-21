@@ -99,6 +99,9 @@ stages:
         ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl status imds-ready.service > /tmp/imds-ready-logs || echo $?"
         set -e
         ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo journalctl --no-tail -u imds-ready.service  >> /tmp/imds-ready-logs"
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl show -p KernelTimestamp >> /tmp/imds-ready-logs"
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl show systemd-networkd -p ExecMainStartTimestamp >> /tmp/imds-ready-logs"
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl show walinuxagent.service -p ExecMainStartTimestamp >> /tmp/imds-ready-logs"
         scp -i /tmp/sshkey azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
         cat /tmp/imds-ready-logs
 
