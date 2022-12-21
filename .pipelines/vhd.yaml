@@ -93,7 +93,9 @@ stages:
 
         retrycmd_if_failure 60 1 3 nc -vz $PRIVATE_IP 22
         retrycmd_if_failure 10 1 3 ssh-keyscan -H $PRIVATE_IP >> ~/.ssh/known_hosts
-        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo timeout 60s systemctl start --wait imds-ready.service > /tmp/imds-ready-logs"
+        # TODO(ace): with notify service and no RemainAfterExit, this will restart the service
+        # want to wait for first run to complete, never start it.
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl status imds-ready.service > /tmp/imds-ready-logs"
         ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo journalctl --no-tail -u imds-ready.service  >> /tmp/imds-ready-logs"
         scp -i /tmp/sshkey azureuser@${PRIVATE_IP}:/tmp/imds-ready-logs /tmp/imds-ready-logs
         cat /tmp/imds-ready-logs
