@@ -3,9 +3,9 @@ Description=A service to check how long after boot imds was ready.
 DefaultDependencies=no
 
 [Service]
-Type=exec
+Type=notify
 ExecStart=/bin/bash /opt/azure/imds-ready.sh
-RemainAfterExit=yes
+RemainAfterExit=No
 Restart=on-failure
 
 [Install]

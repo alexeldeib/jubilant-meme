@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+systemd-notify --status="Starting imds-ready check"
 res=$(curl -o /dev/null -w "%{http_code}" -fsSL -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01")
 start="$(date -Isec)"
 echo "started at $start"
@@ -10,4 +11,4 @@ done
 echo "started at $start"
 # curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
 msg="imds reachable at $(date -Isec)"
-# systemd-notify --ready --status="$msg"
+systemd-notify --ready --status="$msg"
