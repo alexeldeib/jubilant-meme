@@ -45,14 +45,14 @@ ubuntu_22_amd64_pkg_list=(fuse3)
 mariner_pkg_list=(blobfuse ca-certificates check-restart cifs-utils cloud-init-azure-kvp conntrack-tools cracklib dnf-automatic ebtables ethtool fuse git inotify-tools iotop iproute ipset iptables jq kernel-devel logrotate lsof nmap-ncat nfs-utils pam pigz psmisc rsyslog socat sysstat traceroute util-linux xz zip)
 mariner2_pkg_list=(apparmor-parser libapparmor blobfuse2)
 
-if [[ "${NAME}" == "Ubuntu" ]]; then
-  pkg_list=${ubuntu_pkg_list}
+if [[ "${id}" == "ubuntu" ]]; then
+  pkg_list=(${ubuntu_pkg_list[@]})
   if [[ $(isARM64) != 1 ]]; then
-    pkg_list+=${ubuntu_amd64_pkg_list}
+    pkg_list+=(${ubuntu_amd64_pkg_list})
     if [[ "${VERSION_ID}" == "18.04" || "${VERSION_ID}" == "20.04" ]]; then
-      pkg_list+=${ubuntu_18_20_amd64_pkg_list}
+      pkg_list+=(${ubuntu_18_20_amd64_pkg_list[@]})
     elif [[ "${VERSION_ID}" == "22.04" ]]; then
-      pkg_list+=${ubuntu_22_amd64_pkg_list}
+      pkg_list+=(${ubuntu_22_amd64_pkg_list[@]})
     fi
   fi
   export DEBIAN_FRONTEND=noninteractive
@@ -60,10 +60,12 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
   apt-get \
     -o Dpkg::Options::="--force-confnew" \
     -o Dpkg::Options::="--force-confdef" \
-    -yq install "${pkg_list[*]}" || exit 1
-elif [[ "${NAME}" == "Mariner" ]]; then
-  pkg_list=${mariner_pkg_list}
-  cat /etc/os-release
+    -yq install "${pkg_list[@]}" || exit 1
+elif [[ "${id}" == "mariner" ]]; then
+  pkg_list=(${mariner_pkg_list})
+  if [[ "${version_id}" == "2.0" ]]; then
+      pkg_list+=(${mariner2_pkg_list})
+  fi
   dnf makecache -y
   dnf update -r --refresh
   dnf install -y "${pkg_list[@]}"
