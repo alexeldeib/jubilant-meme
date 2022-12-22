@@ -45,7 +45,7 @@ ubuntu_22_amd64_pkg_list=(fuse3)
 mariner_pkg_list=(blobfuse ca-certificates check-restart cifs-utils cloud-init-azure-kvp conntrack-tools cracklib dnf-automatic ebtables ethtool fuse git inotify-tools iotop iproute ipset iptables jq kernel-devel logrotate lsof nmap-ncat nfs-utils pam pigz psmisc rsyslog socat sysstat traceroute util-linux xz zip)
 mariner2_pkg_list=(apparmor-parser libapparmor blobfuse2)
 
-if [[ "${id}" == "ubuntu" ]]; then
+if [[ "${ID}" == "ubuntu" ]]; then
   pkg_list=(${ubuntu_pkg_list[@]})
   if [[ $(isARM64) != 1 ]]; then
     pkg_list+=(${ubuntu_amd64_pkg_list})
@@ -61,9 +61,9 @@ if [[ "${id}" == "ubuntu" ]]; then
     -o Dpkg::Options::="--force-confnew" \
     -o Dpkg::Options::="--force-confdef" \
     -yq install "${pkg_list[@]}" || exit 1
-elif [[ "${id}" == "mariner" ]]; then
+elif [[ "${ID}" == "mariner" ]]; then
   pkg_list=(${mariner_pkg_list})
-  if [[ "${version_id}" == "2.0" ]]; then
+  if [[ "${VERSION_ID}" == "2.0" ]]; then
       pkg_list+=(${mariner2_pkg_list})
   fi
   dnf makecache -y
