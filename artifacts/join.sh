@@ -4,9 +4,13 @@ set -uo pipefail
 source /etc/os-release
 cat /etc/os-release
 
+function isArm() {
+  return $(dpkg --print-architecture | grep -q arm)
+}
+
 if [[ "${NAME}" == "Ubuntu" ]]; then
     aptarch="prod"
-    if [[ "${VERSION_ID}" == "18.04" ]]; then
+    if [[ "${VERSION_ID}" == "18.04" && isArm ]]; then
         aptarch="multiarch/prod"
     fi
 
@@ -20,23 +24,6 @@ if [[ "${NAME}" == "Ubuntu" ]]; then
     sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg
     sudo apt-get update -yq
 fi
-
-getCPUArch() {
-    arch=$(uname -m)
-    if [[ ${arch,,} == "aarch64" || ${arch,,} == "arm64"  ]]; then
-        echo "arm64"
-    else
-        echo "amd64"
-    fi
-}
-
-isARM64() {
-    if [[ $(getCPUArch) == "arm64" ]]; then
-        echo 1
-    else
-        echo 0
-    fi
-}
 
 ubuntu_pkg_list=(apt-transport-https ca-certificates ceph-common cgroup-lite cifs-utils conntrack cracklib-runtime ebtables ethtool git glusterfs-client htop iftop init-system-helpers inotify-tools iotop iproute2 ipset iptables nftables jq libpam-pwquality libpwquality-tools mount nfs-common pigz socat sysfsutils sysstat traceroute util-linux xz-utils netcat dnsutils zip rng-tools kmod gcc make dkms initramfs-tools linux-headers-$(uname -r))
 ubuntu_amd64_pkg_list=(blobfuse2)
@@ -73,9 +60,6 @@ else
   echo "unknown os ${NAME}"
   exit 1
 fi
-
-
-
 
 bash /opt/azure/cis.sh || exit 1
 
