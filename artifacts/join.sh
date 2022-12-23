@@ -34,7 +34,7 @@ mariner2_pkg_list=(apparmor-parser libapparmor blobfuse2)
 
 if [[ "${ID}" == "ubuntu" ]]; then
   pkg_list=(${ubuntu_pkg_list[@]})
-  if [[ $(isARM64) != 1 ]]; then
+  if [[ isArm ]]; then
     pkg_list+=(${ubuntu_amd64_pkg_list})
     if [[ "${VERSION_ID}" == "18.04" || "${VERSION_ID}" == "20.04" ]]; then
       pkg_list+=(${ubuntu_18_20_amd64_pkg_list[@]})
