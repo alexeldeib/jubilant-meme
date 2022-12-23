@@ -96,7 +96,7 @@ stages:
         # TODO(ace): with notify service and no RemainAfterExit, this will restart the service
         # want to wait for first run to complete, never start it.
         set +e
-        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl status imds-ready.service > /tmp/imds-ready-logs || echo $?"
+        ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl status imds-ready.service > /tmp/imds-ready-logs"
         set -e
         ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo journalctl --no-tail -u imds-ready.service  >> /tmp/imds-ready-logs"
         ssh -tt -i /tmp/sshkey azureuser@${PRIVATE_IP} "sudo systemctl show -p KernelTimestamp >> /tmp/imds-ready-logs"
