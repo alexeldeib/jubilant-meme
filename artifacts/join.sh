@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -uo pipefail
+set -uxo pipefail
 
 source /etc/os-release
 cat /etc/os-release
@@ -9,13 +9,18 @@ function isArm() {
 }
 
 if [[ "${NAME}" == "Ubuntu" ]]; then
-    aptarch="prod"
-    if [[ "${VERSION_ID}" == "18.04" && isArm ]]; then
-        aptarch="multiarch/prod"
+    aptrepo="prod"
+    aptarches="amd64,arm64,armhf"
+    if [[ "${VERSION_ID}" == "18.04" ]]; then
+      if [[ isArm ]]; then
+        aptrepo="multiarch/prod"
+      else
+        aptarches="amd64"
+      fi
     fi
 
-    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} ${VERSION_CODENAME} main" > microsoft-prod.list
-    echo "deb [arch=amd64,arm64,armhf] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptarch} testing main" > microsoft-prod-testing.list
+    echo "deb [arch=$aptarches] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptrepo} ${VERSION_CODENAME} main" > microsoft-prod.list
+    echo "deb [arch=$aptarches] https://packages.microsoft.com/ubuntu/${VERSION_ID}/${aptrepo} testing main" > microsoft-prod-testing.list
     sudo mv microsoft-prod.list /etc/apt/sources.list.d/microsoft-prod.list
     sudo mv microsoft-prod-testing.list /etc/apt/sources.list.d/microsoft-prod-testing.list
 
@@ -34,7 +39,7 @@ mariner2_pkg_list=(apparmor-parser libapparmor blobfuse2)
 
 if [[ "${ID}" == "ubuntu" ]]; then
   pkg_list=(${ubuntu_pkg_list[@]})
-  if [[ isArm ]]; then
+  if [[ ! isArm ]]; then
     pkg_list+=(${ubuntu_amd64_pkg_list})
     if [[ "${VERSION_ID}" == "18.04" || "${VERSION_ID}" == "20.04" ]]; then
       pkg_list+=(${ubuntu_18_20_amd64_pkg_list[@]})
