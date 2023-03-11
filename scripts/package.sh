@@ -59,6 +59,12 @@ wget https://github.com/containernetworking/plugins/releases/download/v1.0.1/cni
 tar -xvzf cni-plugins-linux-amd64-v1.0.1.tgz -C $root/opt/cni/bin/
 rm cni-plugins-linux-amd64-v1.0.1.tgz
 
+wget https://github.com/aquasecurity/trivy/releases/download/v0.38.2/trivy_0.38.2_Linux-64bit.tar.gz &> /dev/null
+tar -xvzf trivy_0.38.2_Linux-64bit.tar.gz
+chmod a+x trivy 
+mv ./trivy $root/usr/local/bin/
+rm trivy_0.38.2_Linux-64bit.tar.gz
+
 cpAndMode() {
   src=$1; dest=$2; mode=$3
   DIR=$(dirname "$dest") && mkdir -p ${DIR} && cp -a $src $dest && chmod $mode $dest || exit 1
