@@ -82,4 +82,5 @@ journalctl -u imds-ready --no-tail
 systemd-analyze critical-chain
 systemd-analyze critical-chain imds-ready.service
 
-trivy rootfs /
+trivy --security-checks vuln rootfs --ignore-unfixed --severity HIGH,CRITICAL /
+
